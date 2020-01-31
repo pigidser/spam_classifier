@@ -9,7 +9,6 @@ from spam_classifier import classify
 '''
 
 @app.route('/classify_text', methods=['POST'])
-
 def classify_text():
     data = request.json
     text = data['text']
@@ -17,7 +16,6 @@ def classify_text():
     return jsonify({'result': result})
 
 @app.route('/number_inc', methods=['GET'])
-
 def number_inc():
 	args = request.args
 	try:
@@ -27,14 +25,11 @@ def number_inc():
 		return 'Необходимо ввести число'
 
 @app.route('/')
-
 def hello_world():
     return 'Hello, World!' #возвращает приветствие в виде строки.
-	
-@app.route('/hello_user', methods=['POST'])
 
+@app.route('/hello_user', methods=['POST'])
 def hello_user():
     data = request.json
     user = data['user']
     return f'hello {user}'
-	
