@@ -11,9 +11,18 @@ from spam_classifier import classify
 @app.route('/classify_text', methods=['POST'])
 def classify_text():
     data = request.json
-    text = data['text']
-    result = classify(text)
-    return jsonify({'result': result})
+    text = data.get('text')
+    #Метод возвращает None, если запрашиваемого ключа нет
+    if text is None:
+        params = ', '.join(data.keys())
+        #Преобразуем все полученные параметры в строку
+        return jsonify({'message': f'Parameter "{params}" is invalid'}), 400
+        #Ранее мы не указывали код ответа HTTP явно,
+        #но на самом деле Flask выполнял эту работу за нас.
+        #По умолчанию возвращается 200
+    else:
+        result = classify(text)
+        return jsonify({'result': result})
 
 @app.route('/number_inc', methods=['GET'])
 def number_inc():
